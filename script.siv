@@ -1,0 +1,23 @@
+require ["fileinto"];
+
+# Mailing lists
+if address :is ["To", "From"] "local-nantes@listes.openstreetmap.fr"
+{
+   fileinto "mailing-lists/osm-nantes";
+   stop;
+}
+
+if address :is ["To", "From"] "elbe-devel@linutronix.de"
+{
+   fileinto "mailing-lists/elbe-devel";
+   stop;
+}
+
+# Security notifications
+if header :contains "subject" ["security alert", "security notification", "login", "sign-on",
+  "sign-in", "sign in", "sign on", "email address", "email change", "password", "terms of service",
+  "nouvelle connexion", "connexion depuis"]
+{
+  fileinto "Trash";
+  stop;
+}
